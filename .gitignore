@@ -1,0 +1,24 @@
+# Default ignored files
+*.cdb
+*.prt
+*.lck
+*.$d1
+*.$d2
+*.sir
+*.sdb
+*.cfg
+*.dwl
+*.dwl2
+*.erg
+*.error_positions
+*.lst
+~*
+
+.idea
+/shelf/
+/workspace.xml
+.venv
+*.plb
+*.bak
+*.dat
+venv
