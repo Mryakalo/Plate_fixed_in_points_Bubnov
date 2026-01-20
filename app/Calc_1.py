@@ -3,6 +3,9 @@ import math as m
 import time
 from sympy import lambdify, symbols, diff, integrate, simplify, sin, cos, solve, expand
 
+from app.Functions import wn, eq1_integral, right_part_eq1, eq2_integral, right_part_eq2, eq3_integral, right_part_eq3, \
+    eq4_integral, right_part_eq4
+
 a = 5  # m
 b = 6  # m
 N1 = 0
@@ -20,80 +23,44 @@ number_variables = 4  # wi
 left_part: np.ndarray = np.zeros((number_variables, number_variables))
 right_part: np.ndarray = np.zeros(number_variables)
 
+i = 0
+j = 0
+w1_in_Wn, w2_in_Wn, w3_in_Wn, w4_in_Wn = wn(i, j, a, b)
 
+left_part[0][0] = eq1_integral(i, j, a, b, D, q, w1_in_Wn)[0]
+left_part[0][1] = eq1_integral(i, j, a, b, D, q, w2_in_Wn)[0]
+left_part[0][2] = eq1_integral(i, j, a, b, D, q, w3_in_Wn)[0]
+left_part[0][3] = eq1_integral(i, j, a, b, D, q, w4_in_Wn)[0]
+right_part[0] = right_part_eq1(i, j, a, b, q)[0]
+left_part[1][0] = eq2_integral(i, j, a, b, D, q, w1_in_Wn)[0]
+left_part[1][1] = eq2_integral(i, j, a, b, D, q, w2_in_Wn)[0]
+left_part[1][2] = eq2_integral(i, j, a, b, D, q, w3_in_Wn)[0]
+left_part[1][3] = eq2_integral(i, j, a, b, D, q, w4_in_Wn)[0]
+right_part[1] = right_part_eq2(i, j, a, b, q)[0]
+left_part[2][0] = eq3_integral(i, j, a, b, D, q, w1_in_Wn)[0]
+left_part[2][1] = eq3_integral(i, j, a, b, D, q, w2_in_Wn)[0]
+left_part[2][2] = eq3_integral(i, j, a, b, D, q, w3_in_Wn)[0]
+left_part[2][3] = eq3_integral(i, j, a, b, D, q, w4_in_Wn)[0]
+right_part[2] = right_part_eq3(i, j, a, b, q)[0]
+left_part[3][0] = eq4_integral(i, j, a, b, D, q, w1_in_Wn)[0]
+left_part[3][1] = eq4_integral(i, j, a, b, D, q, w2_in_Wn)[0]
+left_part[3][2] = eq4_integral(i, j, a, b, D, q, w3_in_Wn)[0]
+left_part[3][3] = eq4_integral(i, j, a, b, D, q, w4_in_Wn)[0]
+right_part[3] = right_part_eq4(i, j, a, b, q)[0]
+print(left_part)
+print(right_part)
 
+vector_w: np.ndarray = np.linalg.solve(left_part, right_part)
 
-
-
-
-
-print('eq1_integrand =', eq1_integrand.expand())
-
-
-
-eq1 = integrate(integrate(eq1_integrand_expand, (x, 0, a)), (y, 0, b))
-left_part[0][0] = diff(eq1, w1)
-left_part[0][1] = diff(eq1, w2)
-left_part[0][2] = diff(eq1, w3)
-left_part[0][3] = diff(eq1, w4)
-lamda_eq1 = lambdify([w1, w2, w3, w4], eq1)
-right_part[0] = - lamda_eq1(0, 0, 0, 0)
-print('eq1 =', eq1)
-
-
-print('eq2_integrand =', eq2_integrand.expand())
-eq2 = integrate(integrate(eq2_integrand.expand(), (x, 0, a)), (y, 0, b))
-left_part[1][0] = diff(eq2, w1)
-left_part[1][1] = diff(eq2, w2)
-left_part[1][2] = diff(eq2, w3)
-left_part[1][3] = diff(eq2, w4)
-lamda_eq2 = lambdify([w1, w2, w3, w4], eq2)
-right_part[1] = - lamda_eq2(0, 0, 0, 0)
-print('eq2 =', eq2)
-
-
-print('eq3_integrand =', eq3_integrand.expand())
-eq3 = integrate(integrate(eq3_integrand.expand(), (x, 0, a)), (y, 0, b))
-left_part[2][0] = diff(eq3, w1)
-left_part[2][1] = diff(eq3, w2)
-left_part[2][2] = diff(eq3, w3)
-left_part[2][3] = diff(eq3, w4)
-lamda_eq3 = lambdify([w1, w2, w3, w4], eq3)
-right_part[2] = - lamda_eq3(0, 0, 0, 0)
-print('eq3 =', eq3)
-
-
-print('eq4_integrand =', eq4_integrand.expand())
-eq4 = integrate(integrate(eq4_integrand.expand(), (x, 0, a)), (y, 0, b))
-left_part[3][0] = diff(eq4, w1)
-left_part[3][1] = diff(eq4, w2)
-left_part[3][2] = diff(eq4, w3)
-left_part[3][3] = diff(eq4, w4)
-lamda_eq4 = lambdify([w1, w2, w3, w4], eq4)
-right_part[3] = - lamda_eq4(0, 0, 0, 0)
-print('eq4 =', eq4)
-
-system = [eq1, eq2, eq3, eq4]
-t1_1 = time.time()
-solutions = solve(system, w1, w2, w3, w4, dict=True)
-t2_1 = time.time()
-t_1 = t2_1 - t1_1
-print('time', t_1)
-print(solutions[0])
-
-t1_1 = time.time()
-vector_w = np.linalg.solve(left_part, right_part)
-t2_1 = time.time()
-t_1 = t2_1 - t1_1
-print('time', t_1)
-print(vector_w)
-
+x, y = symbols('x y')
+w1, w2, w3, w4 = symbols('w1 w2 w3 w4')
+Wn = (w1_in_Wn) * w1 + (w2_in_Wn) * w2 + (w3_in_Wn) * w3 + (w4_in_Wn) * w4
 Wn_lambda = lambdify([w1, w2, w3, w4, x, y], Wn)
 W_middle = Wn_lambda(
-    solutions[0][w1],
-    solutions[0][w2],
-    solutions[0][w3],
-    solutions[0][w4],
+    vector_w[0],
+    vector_w[1],
+    vector_w[2],
+    vector_w[3],
     a / 2,
     b / 2
 )
