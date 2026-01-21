@@ -7,6 +7,7 @@ from scipy import integrate
 def omega(a, b):
     x, y = symbols('x y')
     return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b)) + ')')
+    # return simplify('(' + str((a - x) ** 2 * x ** 2 + (b - y) ** 2 * y ** 2) + ')')
 
 def wn(i, j, a, b):
     x, y = symbols('x y')
@@ -29,12 +30,12 @@ def nabla_wn(w_in_wn):
     d4wn_dx4 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), x), x)) + ')'
     d4wn_dy4 = '(' + str(diff(diff(diff(diff(w_in_wn, y), y), y), y)) + ')'
     d4wn_dx2_dy2 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), y), y)) + ')'
-    nabla = simplify('(' + d4wn_dx4 + '+' + d4wn_dy4 + ' + 2 * ' + d4wn_dx2_dy2 + ')')
+    nabla = simplify('(' + d4wn_dx4 + '+' + d4wn_dy4 + ' + 2 * (' + d4wn_dx2_dy2 + '))')
 
     return nabla
 
 
-def eq1_integral(i, j, a, b, D, q, w_in_wn):
+def eq1_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * sin((2 * i + 1) * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
@@ -43,7 +44,7 @@ def eq1_integral(i, j, a, b, D, q, w_in_wn):
     return coef_wi_in_equation
 
 
-def eq2_integral(i, j, a, b, D, q, w_in_wn):
+def eq2_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * sin((2 * i + 1) * m.pi * x / a) * cos(2 * j * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
@@ -52,7 +53,7 @@ def eq2_integral(i, j, a, b, D, q, w_in_wn):
     return coef_wi_in_equation
 
 
-def eq3_integral(i, j, a, b, D, q, w_in_wn):
+def eq3_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * cos(2 * i * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
@@ -61,7 +62,7 @@ def eq3_integral(i, j, a, b, D, q, w_in_wn):
     return coef_wi_in_equation
 
 
-def eq4_integral(i, j, a, b, D, q, w_in_wn):
+def eq4_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * cos(2 * i * m.pi * x / a) * cos(2 * j * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)

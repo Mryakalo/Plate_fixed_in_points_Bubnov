@@ -1,3 +1,5 @@
+import sys
+
 import numpy as np
 import time
 from sympy import lambdify, symbols
@@ -14,9 +16,11 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 3  # Номер приближения
+n_approx = 1  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
+
+np.set_printoptions(threshold=sys.maxsize)  # чтобы выводилась полностью вся матрица
 
 t1 = time.time()
 
@@ -38,51 +42,59 @@ for k in range(n_approx + 1):
         right_part[1 + n_wi * equation_position] = right_part_eq2(k, l, a, b, q)[0]
         right_part[2 + n_wi * equation_position] = right_part_eq3(k, l, a, b, q)[0]
         right_part[3 + n_wi * equation_position] = right_part_eq4(k, l, a, b, q)[0]
+        print('k = ', k)
+        print('l = ', l)
 
         for i in range(n_approx + 1):
             for j in range(n_approx + 1):
-                print('i = ', i)
-                print('j = ', j)
+                # print('i = ', i)
+                # print('j = ', j)
                 w1_in_Wn, w2_in_Wn, w3_in_Wn, w4_in_Wn = wn(i, j, a, b)
 
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, q, w1_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, w1_in_Wn)[0]
                 position_wij_in_eq1 += 1
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, q, w2_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, w2_in_Wn)[0]
                 position_wij_in_eq1 += 1
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, q, w3_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, w3_in_Wn)[0]
                 position_wij_in_eq1 += 1
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, q, w4_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral(k, l, a, b, D, w4_in_Wn)[0]
                 position_wij_in_eq1 += 1
-
-                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, q, w1_in_Wn)[0]
-                position_wij_in_eq2 += 1
-                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, q, w2_in_Wn)[0]
-                position_wij_in_eq2 += 1
-                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, q, w3_in_Wn)[0]
-                position_wij_in_eq2 += 1
-                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, q, w4_in_Wn)[0]
-                position_wij_in_eq2 += 1
-
-                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, q, w1_in_Wn)[0]
-                position_wij_in_eq3 += 1
-                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, q, w2_in_Wn)[0]
-                position_wij_in_eq3 += 1
-                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, q, w3_in_Wn)[0]
-                position_wij_in_eq3 += 1
-                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, q, w4_in_Wn)[0]
-                position_wij_in_eq3 += 1
-
-                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, q, w1_in_Wn)[0]
-                position_wij_in_eq4 += 1
-                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, q, w2_in_Wn)[0]
-                position_wij_in_eq4 += 1
-                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, q, w3_in_Wn)[0]
-                position_wij_in_eq4 += 1
-                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, q, w4_in_Wn)[0]
-                position_wij_in_eq4 += 1
-
                 # print(left_part)
                 # print(right_part)
+
+                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, w1_in_Wn)[0]
+                position_wij_in_eq2 += 1
+                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, w2_in_Wn)[0]
+                position_wij_in_eq2 += 1
+                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, w3_in_Wn)[0]
+                position_wij_in_eq2 += 1
+                left_part[1 + n_wi * equation_position][position_wij_in_eq2] = eq2_integral(k, l, a, b, D, w4_in_Wn)[0]
+                position_wij_in_eq2 += 1
+                # print(left_part)
+                # print(right_part)
+
+                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, w1_in_Wn)[0]
+                position_wij_in_eq3 += 1
+                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, w2_in_Wn)[0]
+                position_wij_in_eq3 += 1
+                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, w3_in_Wn)[0]
+                position_wij_in_eq3 += 1
+                left_part[2 + n_wi * equation_position][position_wij_in_eq3] = eq3_integral(k, l, a, b, D, w4_in_Wn)[0]
+                position_wij_in_eq3 += 1
+                # print(left_part)
+                # print(right_part)
+
+                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, w1_in_Wn)[0]
+                position_wij_in_eq4 += 1
+                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, w2_in_Wn)[0]
+                position_wij_in_eq4 += 1
+                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, w3_in_Wn)[0]
+                position_wij_in_eq4 += 1
+                left_part[3 + n_wi * equation_position][position_wij_in_eq4] = eq4_integral(k, l, a, b, D, w4_in_Wn)[0]
+                position_wij_in_eq4 += 1
+                # print(left_part)
+                # print(right_part)
+
 
         equation_position += 1
 
@@ -96,47 +108,54 @@ x, y = symbols('x y')
 Wn = 0
 equation_position = 0
 sign = 1
-for_sign = 0
 
 for i in range(n_approx + 1):
     for j in range(n_approx + 1):
         print('i = ', i)
         print('j = ', j)
         w1_in_Wn, w2_in_Wn, w3_in_Wn, w4_in_Wn = wn(i, j, a, b)
+        # print('n_wi * equation_position = ', n_wi * equation_position)
         Wn_raw = ((w1_in_Wn) * vector_w[0 + n_wi * equation_position] +
-              (w2_in_Wn) * vector_w[1 + n_wi * equation_position] +
-              (w3_in_Wn) * vector_w[2 + n_wi * equation_position] +
-              (w4_in_Wn) * vector_w[3 + n_wi * equation_position])
+                  (w2_in_Wn) * vector_w[1 + n_wi * equation_position] +
+                  (w3_in_Wn) * vector_w[2 + n_wi * equation_position] +
+                  (w4_in_Wn) * vector_w[3 + n_wi * equation_position])
+
+        # print('w1_in_Wn = ', w1_in_Wn)
+        # print('w2_in_Wn = ', w2_in_Wn)
+        # print('w3_in_Wn = ', w3_in_Wn)
+        # print('w4_in_Wn = ', w4_in_Wn)
+
+        Wn = (Wn + Wn_raw)
 
         Wn_lambda = lambdify([x, y], Wn_raw)
         W_middle = Wn_lambda(
             a / 2,
             b / 2
         )
-
-        if W_middle < 0:
-            sign = - 1
-        else:
-            sign = 1
-
-        print(sign)
-        Wn = (Wn + sign * Wn_raw)
-
-        Wn_lambda = lambdify([x, y], Wn)
-        W_middle = Wn_lambda(
-            a / 2,
-            b / 2
-        )
-        print('Перемещения, мм', W_middle * 1000)
-        for_sign += 1
-    equation_position += 1
+        print('Часть от перемещения, мм', W_middle * 1000)
+        equation_position += 1
 
 Wn_lambda = lambdify([x, y], Wn)
 W_middle = Wn_lambda(
     a / 2,
     b / 2
 )
-print('Перемещения, мм', W_middle * 1000)
+print('Перемещения в центре, мм', W_middle * 1000)
+W_edge = Wn_lambda(
+    0,
+    b / 2
+)
+print('Перемещения на краю, мм', W_edge * 1000)
+W_edge = Wn_lambda(
+    a / 2,
+    0
+)
+print('Перемещения на краю, мм', W_edge * 1000)
+W_edge = Wn_lambda(
+    a,
+    b
+)
+print('Перемещения на краю, мм', W_edge * 1000)
 
 t2 = time.time()
 t = t2 - t1
