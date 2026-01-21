@@ -1,5 +1,6 @@
 from scipy import integrate
 import numpy as np
+import math as m
 from sympy import lambdify, symbols, diff, sin
 
 
@@ -28,15 +29,41 @@ def f(x,y,):
         np.sin(0.628318530717959 * x)) * (np.sin(0.523598775598299 * y)) * (np.sin(0.523598775598299 * y)) ** 2)
 
 
-i = 0
-j = 1
+# i = 0
+# j = 0
 a = 5
 b = 6
-x, y = symbols('x y')
-f2 = sin((2 * i + 1) * np.pi * x / a) * sin((2 * j + 1) * np.pi * y / b)
-d = diff(f2, x)
-lamda_d = lambdify([x, y], d)
+# x, y = symbols('x y')
+# f2 = sin((2 * i + 1) * np.pi * x / a) * sin((2 * j + 1) * np.pi * y / b)
+# d = diff(f2, x)
+# lamda_d = lambdify([x, y], d)
+#
+# I = integrate.nquad(lamda_d, [[0, 5], [0, 6]])
 
-I = integrate.nquad(lamda_d, [[0, 5], [0, 6]])
+x = a / 2
+y = b / 2
 
-print(I[0])
+i = 0
+j = 0
+c1 = np.sin((2 * i + 1) * m.pi * x / a)
+c2 = np.sin((2 * j + 1) * m.pi * y / b)
+c3 = np.cos(2 * i * m.pi * x / a)
+c4 = np.cos(2 * j * m.pi * y / b)
+print('c1 = ', c1)
+print('c2 = ', c2)
+print('c3 = ', c3)
+print('c4 = ', c4)
+
+i = 0
+j = 1
+c1 = np.sin((2 * i + 1) * m.pi * x / a)
+c2 = np.sin((2 * j + 1) * m.pi * y / b)
+c3 = np.cos(2 * i * m.pi * x / a)
+c4 = np.cos(2 * j * m.pi * y / b)
+print('c1 = ', c1)
+print('c2 = ', c2)
+print('c3 = ', c3)
+print('c4 = ', c4)
+
+
+# print(I[0])

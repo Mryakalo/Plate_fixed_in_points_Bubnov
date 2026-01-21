@@ -7,7 +7,6 @@ from app.Functions import wn, eq1_integral, right_part_eq1, eq2_integral, right_
 
 a = 5  # m
 b = 6  # m
-N1 = 0
 E = 27500  # MPa
 mu = 0.2
 h = 0.2  # m
