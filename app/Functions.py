@@ -26,11 +26,15 @@ def wn(i, j, a, b):
 
 
 def nabla_wn(w_in_wn):
+    t1 = time.time()
     x, y = symbols('x y')
     d4wn_dx4 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), x), x)) + ')'
     d4wn_dy4 = '(' + str(diff(diff(diff(diff(w_in_wn, y), y), y), y)) + ')'
     d4wn_dx2_dy2 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), y), y)) + ')'
     nabla = simplify('(' + d4wn_dx4 + '+' + d4wn_dy4 + ' + 2 * (' + d4wn_dx2_dy2 + '))')
+    t2 = time.time()
+    t = t2 - t1
+    print('time diff = ', t)
 
     return nabla
 
@@ -39,7 +43,11 @@ def eq1_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * sin((2 * i + 1) * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
+    t1 = time.time()
     coef_wi_in_equation = integrate.nquad(integrand_lambda, [[0, a], [0, b]])
+    t2 = time.time()
+    t = t2 - t1
+    print('time integr eq1 = ', t)
 
     return coef_wi_in_equation
 
@@ -48,7 +56,11 @@ def eq2_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * sin((2 * i + 1) * m.pi * x / a) * cos(2 * j * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
+    t1 = time.time()
     coef_wi_in_equation = integrate.nquad(integrand_lambda, [[0, a], [0, b]])
+    t2 = time.time()
+    t = t2 - t1
+    print('time integr eq2 = ', t)
 
     return coef_wi_in_equation
 
@@ -57,7 +69,11 @@ def eq3_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * cos(2 * i * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
+    t1 = time.time()
     coef_wi_in_equation = integrate.nquad(integrand_lambda, [[0, a], [0, b]])
+    t2 = time.time()
+    t = t2 - t1
+    print('time integr eq3 = ', t)
 
     return coef_wi_in_equation
 
@@ -66,7 +82,11 @@ def eq4_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
     integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) ** 2 * cos(2 * i * m.pi * x / a) * cos(2 * j * m.pi * y / b)
     integrand_lambda = lambdify([x, y], integrand)
+    t1 = time.time()
     coef_wi_in_equation = integrate.nquad(integrand_lambda, [[0, a], [0, b]])
+    t2 = time.time()
+    t = t2 - t1
+    print('time integr eq4 = ', t)
 
     return coef_wi_in_equation
 

@@ -16,7 +16,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 1  # Номер приближения
+n_approx = 0  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
@@ -32,6 +32,7 @@ right_part: np.ndarray = np.zeros(number_variables)
 equation_position = 0
 
 for k in range(n_approx + 1):
+    print('k = ', k)
     for l in range(n_approx + 1):
         # Сначала индексы k, l по индексам в уравнении
         position_wij_in_eq1 = 0
@@ -42,12 +43,11 @@ for k in range(n_approx + 1):
         right_part[1 + n_wi * equation_position] = right_part_eq2(k, l, a, b, q)[0]
         right_part[2 + n_wi * equation_position] = right_part_eq3(k, l, a, b, q)[0]
         right_part[3 + n_wi * equation_position] = right_part_eq4(k, l, a, b, q)[0]
-        print('k = ', k)
         print('l = ', l)
 
         for i in range(n_approx + 1):
+            # print('i = ', i)
             for j in range(n_approx + 1):
-                # print('i = ', i)
                 # print('j = ', j)
                 w1_in_Wn, w2_in_Wn, w3_in_Wn, w4_in_Wn = wn(i, j, a, b)
 
