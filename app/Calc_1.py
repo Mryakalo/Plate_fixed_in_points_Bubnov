@@ -6,6 +6,7 @@ from sympy import lambdify, symbols
 
 from app.Functions import wn, eq1_integral, right_part_eq1, eq2_integral, right_part_eq2, eq3_integral, right_part_eq3, \
     eq4_integral, right_part_eq4
+from app.Plot_diagram import plot_graph
 
 a = 5  # m
 b = 6  # m
@@ -16,7 +17,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 0  # Номер приближения
+n_approx = 1  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
@@ -160,4 +161,6 @@ print('Перемещения на краю, мм', W_edge * 1000)
 t2 = time.time()
 t = t2 - t1
 print('time', t)
+
+plot_graph(Wn_lambda, a, b)
 

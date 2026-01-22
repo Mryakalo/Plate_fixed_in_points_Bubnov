@@ -1,13 +1,14 @@
 import numpy as np
 import math as m
 import time
-from sympy import lambdify, symbols, diff, integrate, simplify, sin, cos
+from sympy import lambdify, symbols, diff, integrate, simplify, sin, cos, exp
 from scipy import integrate
 
 def omega(a, b):
     x, y = symbols('x y')
     return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b)) + ')')
     # return simplify('(' + str((a - x) ** 2 * x ** 2 + (b - y) ** 2 * y ** 2) + ')')
+    # return simplify('(' + str((a - x) * x + (b - y) * y) + ')')
 
 def wn(i, j, a, b):
     x, y = symbols('x y')
@@ -17,10 +18,10 @@ def wn(i, j, a, b):
     coef_w3_in_sum = cos(2 * i * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
     coef_w4_in_sum = cos(2 * i * m.pi * x / a) * cos(2 * j * m.pi * y / b)
 
-    coef_w1_in_wn = simplify('(' + str(omega(a, b)) + ') ** 2 * (' + str(coef_w1_in_sum) + ')')
-    coef_w2_in_wn = simplify('(' + str(omega(a, b)) + ') ** 2 * (' + str(coef_w2_in_sum) + ')')
-    coef_w3_in_wn = simplify('(' + str(omega(a, b)) + ') ** 2 * (' + str(coef_w3_in_sum) + ')')
-    coef_w4_in_wn = simplify('(' + str(omega(a, b)) + ') ** 2 * (' + str(coef_w4_in_sum) + ')')
+    coef_w1_in_wn = simplify('(' + str(omega(a, b) ** 2 * coef_w1_in_sum) + ')')
+    coef_w2_in_wn = simplify('(' + str(omega(a, b) ** 2 * coef_w2_in_sum) + ')')
+    coef_w3_in_wn = simplify('(' + str(omega(a, b) ** 2 * coef_w3_in_sum) + ')')
+    coef_w4_in_wn = simplify('(' + str(omega(a, b) ** 2 * coef_w4_in_sum) + ')')
 
     return coef_w1_in_wn, coef_w2_in_wn, coef_w3_in_wn, coef_w4_in_wn
 
