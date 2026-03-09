@@ -8,7 +8,7 @@ from app.Functions import wn, eq1_integral, right_part_eq1, eq2_integral, right_
     eq4_integral, right_part_eq4
 from app.Plot_diagram import plot_graph
 
-a = 5  # m
+a = 6  # m
 b = 6  # m
 E = 27500  # MPa
 mu = 0.2
@@ -17,7 +17,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 1  # Номер приближения
+n_approx = 4  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
