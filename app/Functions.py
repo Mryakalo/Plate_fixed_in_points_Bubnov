@@ -50,7 +50,7 @@ def eq1_integral(i, j, a, b, D, w_in_wn):
     t = t2 - t1
     # print('time integr eq1 = ', t)
 
-    return coef_wi_in_equation
+    return coef_wi_in_equation[0]
 
 
 def eq2_integral(i, j, a, b, D, w_in_wn):
@@ -63,7 +63,7 @@ def eq2_integral(i, j, a, b, D, w_in_wn):
     t = t2 - t1
     # print('time integr eq2 = ', t)
 
-    return coef_wi_in_equation
+    return coef_wi_in_equation[0]
 
 
 def eq3_integral(i, j, a, b, D, w_in_wn):
@@ -76,7 +76,7 @@ def eq3_integral(i, j, a, b, D, w_in_wn):
     t = t2 - t1
     # print('time integr eq3 = ', t)
 
-    return coef_wi_in_equation
+    return coef_wi_in_equation[0]
 
 
 def eq4_integral(i, j, a, b, D, w_in_wn):
@@ -89,7 +89,7 @@ def eq4_integral(i, j, a, b, D, w_in_wn):
     t = t2 - t1
     # print('time integr eq4 = ', t)
 
-    return coef_wi_in_equation
+    return coef_wi_in_equation[0]
 
 
 def right_part_eq1(i, j, a, b, q):
