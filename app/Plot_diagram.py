@@ -6,24 +6,24 @@ from app.helpers import ask_parameter
 
 def plot_graph(w_function, a, b):
     # 1. Определяем количество точек разбиения вдоль x
-    name = 'Number internal points between 0 and y'
-    default = 11
+    name = 'Number internal points between 0 and x'
+    default = int(a / 0.5)
     number_x_points = ask_parameter(name=name, params_type=int, default=default) + 2
 
     # 2. Определяем количество точек разбиения вдоль y
     name = 'Number internal points between 0 and y'
-    default = 11
+    default = int(b / 0.5)
     number_y_points = ask_parameter(name=name, params_type=int, default=default) + 2
 
     # 3. Собирается массив со всеми перемещениями всех узлов
     matrix_w: np.ndarray = np.zeros((number_x_points, number_y_points))
     for i in range(number_x_points):
         for j in range(number_y_points):
-            matrix_w[i][j] = w_function(a * i / (number_y_points - 1), b * j / (number_y_points - 1))
+            matrix_w[i][j] = w_function(a * i / (number_x_points - 1), b * j / (number_y_points - 1))
     # print(matrix_w)
 
     # 3. Заполняем массивы с координатами вдоль x и y
-    x_axis = np.linspace(0, a, int(number_y_points))
+    x_axis = np.linspace(0, a, int(number_x_points))
     y_axis = np.linspace(0, b, int(number_y_points))
     z_axis = matrix_w * 1000
 

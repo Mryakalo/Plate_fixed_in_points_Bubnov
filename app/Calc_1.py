@@ -15,8 +15,8 @@ from app.Plot_diagram import plot_graph
 
 np.set_printoptions(threshold=sys.maxsize)  # чтобы выводилась полностью вся матрица
 
-a = 6  # m
-b = 6  # m
+a = 10  # m
+b = 10  # m
 E = 27500  # MPa
 mu = 0.2
 h = 0.2  # m
@@ -24,7 +24,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 6  # Номер приближения
+n_approx = 3  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
