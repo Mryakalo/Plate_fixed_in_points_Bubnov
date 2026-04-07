@@ -216,7 +216,8 @@ def main() -> None:
     )
     print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
 
-    # plot_graph(Wn_lambda, a, b)
+    plot_graph(Wn_lambda, a, b)
+    plot_graph(Mx_lambda, a, b)
 
 
 if __name__ == "__main__":

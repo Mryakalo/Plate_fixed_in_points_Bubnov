@@ -1,22 +1,28 @@
 PROG WING
-$ GRAPHIC document (version ####-##.## build #######) from Service Pack 2024 10 Build 1119 20.01.26 , 15:37:41
+$ GRAPHIC document (version ####-##.## build #######) from Service Pack 2024 10 Build 1119  7.04.26 , 20:06:42
 HEAD $ Nodal displacement in global Z  LC:          1
 UNIT 0 SET IN $ default unit set
 CTRL OPT GSTR VAL DEFA
 CTRL OPT REPR VAL YES
 $ graphics    1 | picture    1 | layer    1 : Nodal displacement in global Z  LC:          1
 PAGE LANO 1
-SIZE TYPE URS SC 0 MARG NO
-SIZ2
+SIZE TYPE URS SC 0 MARG NO SPLI '1*1'
+SIZ2 SPLI DEFA
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
-SCHH H6 0.350000
+SCHH H6 0.540000 H8 0.500000
 SCH2 DIRE DEFA
+LEGO TYPE FSKL SCHH 0.500000
 FILL TYPE ISOL NUMB 20 MODE '-' DMOD RDEF
 LC   NO 1 DESI 1
+BOX
 VIEW TYPE DIRE X 0 Y 0 Z 1 AXIS NEGX ROTA 0
 DEFO TYPE NO EXPO 0 SMOV NO
 SELE NUMB 0
 NODE TYPE UZ UNIT DEFA SCHH YES FILL AREA REPR DISO
+$ graphics    2 | picture    1 | layer    1 : Bending moment m-xx in local x  LC:          1
+SIZ2
+AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
+QUAD TYPE MX UNIT DEFA SCHH YES STYP NODE FILL AREA REPR DISO AVER NO
 $ Definitions of interactive work
-iNTE SET 0 PAR1 1 PAR2 1 PAR3 1 PAR4 0 PAR5 0
+iNTE SET 0 PAR1 2 PAR2 1 PAR3 1 PAR4 0 PAR5 0
 END
