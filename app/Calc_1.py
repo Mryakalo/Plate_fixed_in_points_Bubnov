@@ -11,12 +11,13 @@ from multiprocessing import Manager, Pool
 
 from app.Functions import wn, eq1_integral, right_part_eq1, eq2_integral, right_part_eq2, eq3_integral, right_part_eq3, \
     eq4_integral, right_part_eq4
+from app.Moment_calc import calc_moment
 from app.Plot_diagram import plot_graph
 
 np.set_printoptions(threshold=sys.maxsize)  # чтобы выводилась полностью вся матрица
 
-a = 10  # m
-b = 10  # m
+a = 6  # m
+b = 6  # m
 E = 27500  # MPa
 mu = 0.2
 h = 0.2  # m
@@ -24,7 +25,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 3  # Номер приближения
+n_approx = 0  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
@@ -137,7 +138,7 @@ def main() -> None:
     vector_w: np.ndarray = np.linalg.solve(left_part, right_part)
     print(vector_w)
 
-    x, y = symbols('x y')
+    x, y, z = symbols('x y z')
     Wn = 0
     equation_position = 0
     sign = 1
@@ -168,6 +169,7 @@ def main() -> None:
             print('Часть от перемещения, мм', W_middle * 1000)
             equation_position += 1
 
+    print('Wn', Wn)
     Wn_lambda = lambdify([x, y], Wn)
     W_middle = Wn_lambda(
         a / 2,
@@ -194,7 +196,27 @@ def main() -> None:
     t = t2 - t1
     print('time', t)
 
-    plot_graph(Wn_lambda, a, b)
+    print('D', D)
+
+    Mx = calc_moment(
+        D,
+        mu,
+        Wn,
+    )
+    Mx_lambda = lambdify([x, y], Mx)
+    M_middle_edge = Mx_lambda(
+        0,
+        b / 2
+    )
+    print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
+
+    M_middle_edge = Mx_lambda(
+        a / 2,
+        0
+    )
+    print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
+
+    # plot_graph(Wn_lambda, a, b)
 
 
 if __name__ == "__main__":

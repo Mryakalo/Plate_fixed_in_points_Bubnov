@@ -1,7 +1,7 @@
 import numpy as np
 import math as m
 import time
-from sympy import lambdify, symbols, diff, integrate, simplify, sin, cos, exp
+from sympy import lambdify, symbols, diff, integrate, simplify, sin, cos, exp, expand
 from scipy import integrate
 
 def omega(a, b):
@@ -29,10 +29,14 @@ def wn(i, j, a, b):
 def nabla_wn(w_in_wn):
     t1 = time.time()
     x, y = symbols('x y')
-    d4wn_dx4 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), x), x)) + ')'
-    d4wn_dy4 = '(' + str(diff(diff(diff(diff(w_in_wn, y), y), y), y)) + ')'
-    d4wn_dx2_dy2 = '(' + str(diff(diff(diff(diff(w_in_wn, x), x), y), y)) + ')'
-    nabla = simplify('(' + d4wn_dx4 + '+' + d4wn_dy4 + ' + 2 * (' + d4wn_dx2_dy2 + '))')
+    d4wn_dx4 = '(' + str(diff(expand(diff(expand(diff(expand(diff(expand(w_in_wn), x)), x)), x)), x)) + ')'
+    d4wn_dy4 = '(' + str(diff(expand(diff(expand(diff(expand(diff(expand(w_in_wn), y)), y)), y)), y)) + ')'
+    d4wn_dx2_dy2 = '(' + str(diff(expand(diff(expand(diff(expand(diff(expand(w_in_wn), x)), x)), y)), y)) + ')'
+    nabla = simplify('((' + d4wn_dx4 + ')+(' + d4wn_dy4 + ' )+ 2 * (' + d4wn_dx2_dy2 + '))')
+    # print('d4wn_dx4 = ', d4wn_dx4,
+    #       ' d4wn_dy4 = ', d4wn_dy4,
+    #       ' d4wn_dx2_dy2 = ', d4wn_dx2_dy2,
+    #       ' nabla = ', nabla)
     t2 = time.time()
     t = t2 - t1
     # print('time diff = ', t)
@@ -42,10 +46,13 @@ def nabla_wn(w_in_wn):
 
 def eq1_integral(i, j, a, b, D, w_in_wn):
     x, y = symbols('x y')
-    integrand = (D * nabla_wn(w_in_wn)) * omega(a, b) * sin((2 * i + 1) * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b)
+    integrand = expand((D * nabla_wn(w_in_wn)) * omega(a, b) * sin((2 * i + 1) * m.pi * x / a) * sin((2 * j + 1) * m.pi * y / b))
     integrand_lambda = lambdify([x, y], integrand)
+    # print('w_in_wn = ', w_in_wn)
+    # print('nabla_wn(w_in_wn) = ', nabla_wn(w_in_wn))
     t1 = time.time()
     coef_wi_in_equation = integrate.nquad(integrand_lambda, [[0, a], [0, b]])
+    # print('integrand = ', integrand, '   coef_wi_in_equation = ', coef_wi_in_equation)
     t2 = time.time()
     t = t2 - t1
     # print('time integr eq1 = ', t)
