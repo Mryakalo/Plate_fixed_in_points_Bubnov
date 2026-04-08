@@ -6,7 +6,7 @@ from scipy import integrate
 
 def omega_polynomial(a, b):
     x, y = symbols('x y')
-    return simplify('(' + str(sin(m.pi * x / a) * (sin(m.pi * y / b) - 2) + sin(m.pi * y / b) * (sin(m.pi * x / a) - 2)) + ')')
+    return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b) - 0.39 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
 
 def wn_polynomial(i, j, a, b):
     x, y = symbols('x y')

@@ -8,8 +8,8 @@ from app.Functions_polynomial import wn_polynomial, right_part_eq1_polynomial, e
 from app.Moment_calc import calc_moment
 from app.Plot_diagram import plot_graph
 
-a = 6  # m
-b = 6  # m
+a = 20  # m
+b = 20  # m
 E = 27500  # MPa
 mu = 0.2
 h = 0.2  # m
@@ -17,7 +17,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 2  # Номер приближения
+n_approx = 0  # Номер приближения
 n_wi = 1  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 print(f'\nApproximation: {n_approx}\n')
@@ -72,6 +72,7 @@ for i in range(n_approx + 1):
     for j in range(n_approx + 1):
         print('j = ', j)
         w1_in_Wn = wn_polynomial(i, j, a, b)
+        print('w1_in_Wn = ', w1_in_Wn)
         # print('n_wi * equation_position = ', n_wi * equation_position)
         Wn_raw = ((w1_in_Wn) * vector_w[0 + n_wi * equation_position])
 
@@ -89,6 +90,8 @@ for i in range(n_approx + 1):
         )
         print('Часть от перемещения, мм', W_middle * 1000)
         equation_position += 1
+
+print('Wn = ', Wn)
 
 Wn_lambda = lambdify([x, y], Wn)
 W_middle = Wn_lambda(
@@ -110,7 +113,7 @@ W_edge = Wn_lambda(
     a,
     b
 )
-print('Перемещения на краю, мм', W_edge * 1000)
+print('Перемещения в углу, мм', W_edge * 1000)
 
 t2 = time.time()
 t = t2 - t1

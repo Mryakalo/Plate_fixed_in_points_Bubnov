@@ -6,7 +6,7 @@ from scipy import integrate
 
 def omega(a, b):
     x, y = symbols('x y')
-    return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b)) + ')')
+    return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b) - 0.39 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
     # return simplify('(' + str((a - x) ** 2 * x ** 2 + (b - y) ** 2 * y ** 2) + ')')
     # return simplify('(' + str((a - x) * x + (b - y) * y) + ')')
 
