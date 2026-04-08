@@ -25,7 +25,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 0  # Номер приближения
+n_approx = 1  # Номер приближения
 n_wi = 4  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 
@@ -216,8 +216,8 @@ def main() -> None:
     )
     print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
 
-    plot_graph(Wn_lambda, a, b)
-    plot_graph(Mx_lambda, a, b)
+    plot_graph(Wn_lambda, a, b, 'W, мм')
+    plot_graph(Mx_lambda, a, b, 'Mx, кН*м')
 
 
 if __name__ == "__main__":

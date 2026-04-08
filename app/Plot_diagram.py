@@ -4,16 +4,17 @@ import plotly.graph_objects as go
 from app.helpers import ask_parameter
 
 
-def plot_graph(w_function, a, b):
+def plot_graph(w_function, a, b, graph_name):
+    print('Inside plot graph')
     # 1. Определяем количество точек разбиения вдоль x
     name = 'Number internal points between 0 and x'
     default = int(a / 0.5)
-    number_x_points = ask_parameter(name=name, params_type=int, default=default) + 2
+    number_x_points = ask_parameter(name=name, params_type=int, default=default) + 1
 
     # 2. Определяем количество точек разбиения вдоль y
     name = 'Number internal points between 0 and y'
     default = int(b / 0.5)
-    number_y_points = ask_parameter(name=name, params_type=int, default=default) + 2
+    number_y_points = ask_parameter(name=name, params_type=int, default=default) + 1
 
     # 3. Собирается массив со всеми перемещениями всех узлов
     matrix_w: np.ndarray = np.zeros((number_x_points, number_y_points))
@@ -35,7 +36,7 @@ def plot_graph(w_function, a, b):
                                      x=x_axis,
                                      y=y_axis,
                                      colorscale='Viridis',
-                                     colorbar_title_text=f"W, мм (max: {z_axis.max():.2f})"
+                                     colorbar_title_text=graph_name + f"(max: {z_axis.max():.2f})"
                                      )])
 
     # Update layout
@@ -46,7 +47,7 @@ def plot_graph(w_function, a, b):
             aspectratio=dict(x=a/a, y=b/a, z=a/4/a),
             xaxis_title='x, м',
             yaxis_title='y, м',
-            zaxis_title='W, мм',
+            zaxis_title='graph_name',
             zaxis=dict(autorange="reversed",
                        visible=False),
             xaxis=dict(visible=False),

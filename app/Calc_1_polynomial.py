@@ -4,7 +4,7 @@ import numpy as np
 import time
 from sympy import lambdify, symbols
 
-from app.Functions_cos import wn_cos, right_part_eq1_cos, eq1_integral_cos
+from app.Functions_polynomial import wn_polynomial, right_part_eq1_polynomial, eq1_integral_polynomial
 from app.Moment_calc import calc_moment
 from app.Plot_diagram import plot_graph
 
@@ -17,7 +17,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 1  # Номер приближения
+n_approx = 2  # Номер приближения
 n_wi = 1  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 print(f'\nApproximation: {n_approx}\n')
@@ -34,22 +34,22 @@ right_part: np.ndarray = np.zeros(number_variables)
 equation_position = 0
 
 for k in range(n_approx + 1):
+    print('k = ', k)
     for l in range(n_approx + 1):
         # Сначала индексы k, l по индексам в уравнении
         position_wij_in_eq1 = 0
 
-        right_part[0 + n_wi * equation_position] = right_part_eq1_cos(k, l, a, b, q)[0]
+        right_part[0 + n_wi * equation_position] = right_part_eq1_polynomial(k, l, a, b, q)[0]
 
-        print('k = ', k)
         print('l = ', l)
 
         for i in range(n_approx + 1):
             for j in range(n_approx + 1):
                 # print('i = ', i)
                 # print('j = ', j)
-                w1_in_Wn = wn_cos(i, j, a, b)
+                w1_in_Wn = wn_polynomial(i, j, a, b)
 
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral_cos(k, l, a, b, D, w1_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral_polynomial(k, l, a, b, D, w1_in_Wn)[0]
                 position_wij_in_eq1 += 1
                 # print(left_part)
                 # print(right_part)
@@ -68,10 +68,10 @@ equation_position = 0
 sign = 1
 
 for i in range(n_approx + 1):
+    print('i = ', i)
     for j in range(n_approx + 1):
-        print('i = ', i)
         print('j = ', j)
-        w1_in_Wn = wn_cos(i, j, a, b)
+        w1_in_Wn = wn_polynomial(i, j, a, b)
         # print('n_wi * equation_position = ', n_wi * equation_position)
         Wn_raw = ((w1_in_Wn) * vector_w[0 + n_wi * equation_position])
 
