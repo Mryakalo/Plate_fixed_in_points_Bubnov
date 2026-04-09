@@ -6,7 +6,7 @@ from scipy import integrate
 
 def omega(a, b):
     x, y = symbols('x y')
-    return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b) - 0.39 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
+    return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b) - 0.2 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
     # return simplify('(' + str((a - x) ** 2 * x ** 2 + (b - y) ** 2 * y ** 2) + ')')
     # return simplify('(' + str((a - x) * x + (b - y) * y) + ')')
 
@@ -33,6 +33,7 @@ def nabla_wn(w_in_wn):
     d4wn_dy4 = '(' + str(diff(expand(diff(expand(diff(expand(diff(expand(w_in_wn), y)), y)), y)), y)) + ')'
     d4wn_dx2_dy2 = '(' + str(diff(expand(diff(expand(diff(expand(diff(expand(w_in_wn), x)), x)), y)), y)) + ')'
     nabla = simplify('((' + d4wn_dx4 + ')+(' + d4wn_dy4 + ' )+ 2 * (' + d4wn_dx2_dy2 + '))')
+    # print('w_in_wn = ', w_in_wn)
     # print('d4wn_dx4 = ', d4wn_dx4,
     #       ' d4wn_dy4 = ', d4wn_dy4,
     #       ' d4wn_dx2_dy2 = ', d4wn_dx2_dy2,

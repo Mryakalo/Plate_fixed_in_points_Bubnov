@@ -204,17 +204,21 @@ def main() -> None:
         Wn,
     )
     Mx_lambda = lambdify([x, y], Mx)
+    print('Изгибающий момент в центре плиты, кНм', Mx_lambda(a / 2, b / 2) * 1000)
+
     M_middle_edge = Mx_lambda(
         0,
         b / 2
     )
-    print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
+    print('Изгибающий момент в центре на краю при x=0, кНм', M_middle_edge * 1000)
 
     M_middle_edge = Mx_lambda(
         a / 2,
         0
     )
-    print('Изгибающий момент в центре на краю, кНм', M_middle_edge * 1000)
+    print('Изгибающий момент в центре на краю при y=0, кНм', M_middle_edge * 1000)
+
+    print('Изгибающий момент в углу, кНм', Mx_lambda(0, 0) * 1000)
 
     plot_graph(Wn_lambda, a, b, 'W, мм')
     plot_graph(Mx_lambda, a, b, 'Mx, кН*м')
