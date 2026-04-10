@@ -8,7 +8,7 @@ from app.Functions_polynomial import wn_polynomial, right_part_eq1_polynomial, e
 from app.Moment_calc import calc_moment
 from app.Plot_diagram import plot_graph
 
-a = 6  # m
+a = 12  # m
 b = 6  # m
 E = 27500  # MPa
 mu = 0.2
@@ -17,7 +17,7 @@ q = 0.01  # MPa
 
 D = E * h ** 3 / (12 * (1 - mu ** 2))
 
-n_approx = 3  # Номер приближения
+n_approx = 0  # Номер приближения
 n_wi = 1  # Кол-во неизвестных при фиксированных i и j
 indexes = 2  # Всего 2 индекса: i и j
 print(f'\nApproximation: {n_approx}\n')
@@ -56,10 +56,11 @@ for k in range(n_approx + 1):
 
         equation_position += 1
 
-print(left_part)
-print(right_part)
+# print(left_part)
+# print(right_part)
 
 vector_w: np.ndarray = np.linalg.solve(left_part, right_part)
+print('vector_w')
 print(vector_w)
 
 x, y = symbols('x y')
