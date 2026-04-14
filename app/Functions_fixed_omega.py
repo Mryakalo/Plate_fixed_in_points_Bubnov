@@ -11,7 +11,7 @@ def omega_fixed_omega(a, b):
     # d = 2 / 0.39 / 24
     d = 0.2
 
-    return simplify('(' + str((a / m.pi) ** 2 + sin(m.pi * x / a) * (sin(m.pi * y / b) - p) +
+    return simplify('(' + str((a / m.pi) ** 2 * sin(m.pi * x / a) * (sin(m.pi * y / b) - p) +
         (b / m.pi) ** 2 * sin(m.pi * y / b) * (sin(m.pi * x / a) - d)) + ')')
 
 def wn_fixed_omega(i, j, a, b):
