@@ -116,7 +116,7 @@ t2 = time.time()
 t = t2 - t1
 print('time', t)
 
-Mx = calc_moment(
+Mx, My = calc_moment(
     D,
     mu,
     Wn,

@@ -4,7 +4,7 @@ import numpy as np
 import time
 from sympy import lambdify, symbols
 
-from app.Functions_polynomial import wn_polynomial, right_part_eq1_polynomial, eq1_integral_polynomial
+from app.Functions_fixed_omega import wn_fixed_omega, right_part_eq1_fixed_omega, eq1_integral_fixed_omega
 from app.Moment_calc import calc_moment
 from app.Plot_diagram import plot_graph
 
@@ -39,7 +39,7 @@ for k in range(n_approx + 1):
         # Сначала индексы k, l по индексам в уравнении
         position_wij_in_eq1 = 0
 
-        right_part[0 + n_wi * equation_position] = right_part_eq1_polynomial(k, l, a, b, q)[0]
+        right_part[0 + n_wi * equation_position] = right_part_eq1_fixed_omega(k, l, a, b, q)[0]
 
         print('l = ', l)
 
@@ -47,9 +47,9 @@ for k in range(n_approx + 1):
             for j in range(n_approx + 1):
                 # print('i = ', i)
                 # print('j = ', j)
-                w1_in_Wn = wn_polynomial(i, j, a, b)
+                w1_in_Wn = wn_fixed_omega(i, j, a, b)
 
-                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral_polynomial(k, l, a, b, D, w1_in_Wn)[0]
+                left_part[0 + n_wi * equation_position][position_wij_in_eq1] = eq1_integral_fixed_omega(k, l, a, b, D, w1_in_Wn)[0]
                 position_wij_in_eq1 += 1
                 # print(left_part)
                 # print(right_part)
@@ -72,7 +72,7 @@ for i in range(n_approx + 1):
     print('i = ', i)
     for j in range(n_approx + 1):
         print('j = ', j)
-        w1_in_Wn = wn_polynomial(i, j, a, b)
+        w1_in_Wn = wn_fixed_omega(i, j, a, b)
         print('w1_in_Wn = ', w1_in_Wn)
         # print('n_wi * equation_position = ', n_wi * equation_position)
         Wn_raw = ((w1_in_Wn) * vector_w[0 + n_wi * equation_position])
@@ -99,12 +99,12 @@ W_middle = Wn_lambda(
     a / 2,
     b / 2
 )
-print('Перемещения в центре, мм', W_middle * 1000)
+print('Перемещения в центре x=0, мм', W_middle * 1000)
 W_edge = Wn_lambda(
     0,
     b / 2
 )
-print('Перемещения на краю, мм', W_edge * 1000)
+print('Перемещения на краю y=0, мм', W_edge * 1000)
 W_edge = Wn_lambda(
     a / 2,
     0
@@ -120,12 +120,13 @@ t2 = time.time()
 t = t2 - t1
 print('time', t)
 
-Mx = calc_moment(
+Mx, My = calc_moment(
     D,
     mu,
     Wn,
 )
 Mx_lambda = lambdify([x, y], Mx)
+My_lambda = lambdify([x, y], My)
 
 print('Изгибающий момент в центре плиты, кНм', Mx_lambda(a / 2, b / 2) * 1000)
 
@@ -145,4 +146,5 @@ print('Изгибающий момент в углу, кНм', Mx_lambda(0, 0) *
 
 plot_graph(Wn_lambda, a, b, 'W, мм')
 plot_graph(Mx_lambda, a, b, 'Mx, кН*м')
+plot_graph(My_lambda, a, b, 'My, кН*м')
 

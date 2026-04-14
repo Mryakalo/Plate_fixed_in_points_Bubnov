@@ -198,7 +198,7 @@ def main() -> None:
 
     print('D', D)
 
-    Mx = calc_moment(
+    Mx, My = calc_moment(
         D,
         mu,
         Wn,

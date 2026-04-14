@@ -20,6 +20,7 @@ def calc_moment(
     # sigma_y = - E * z / (1 - mu) * (d2Wn_dy + mu * (d2Wn_dx))
 
     Mx = str(- D) + ' * (' + str(d2Wn_dx) + ' + ' + str(mu) + ' * (' + str(d2Wn_dy) + '))'
-    print('Mx = ', Mx)
+    My = str(- D) + ' * (' + str(d2Wn_dy) + ' + ' + str(mu) + ' * (' + str(d2Wn_dx) + '))'
+    # print('Mx = ', Mx)
 
-    return Mx
+    return Mx, My
