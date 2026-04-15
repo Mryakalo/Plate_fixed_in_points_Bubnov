@@ -128,21 +128,26 @@ Mx, My = calc_moment(
 Mx_lambda = lambdify([x, y], Mx)
 My_lambda = lambdify([x, y], My)
 
-print('Изгибающий момент в центре плиты, кНм', Mx_lambda(a / 2, b / 2) * 1000)
+print('Mx в центре плиты, кНм', Mx_lambda(a / 2, b / 2) * 1000)
 
 M_middle_edge = Mx_lambda(
     0,
     b / 2
 )
-print('Изгибающий момент в центре на краю при x=0, кНм', M_middle_edge * 1000)
+print('Mx при x=0, кНм', M_middle_edge * 1000)
 
 M_middle_edge = Mx_lambda(
     a / 2,
     0
 )
-print('Изгибающий момент в центре на краю при y=0, кНм', M_middle_edge * 1000)
+print('Mx при y=0, кНм', M_middle_edge * 1000)
 
-print('Изгибающий момент в углу, кНм', Mx_lambda(0, 0) * 1000)
+print('Mx в углу, кНм', Mx_lambda(0, 0) * 1000)
+
+print('My в центре плиты, кНм', My_lambda(a / 2, b / 2) * 1000)
+print('My при x=0, кНм', My_lambda(0, b / 2) * 1000)
+print('My при y=0, кНм', My_lambda(a / 2, 0) * 1000)
+print('My в углу, кНм', My_lambda(0, 0) * 1000)
 
 plot_graph(Wn_lambda, a, b, 'W, мм')
 plot_graph(Mx_lambda, a, b, 'Mx, кН*м')

@@ -13,8 +13,8 @@ def calc_moment(
     dWn_dy = diff(Wn, y)
     d2Wn_dy = diff(dWn_dy, y)
 
-    print('d2Wn_dx = ', d2Wn_dx)
-    print('d2Wn_dy = ', d2Wn_dy)
+    # print('d2Wn_dx = ', d2Wn_dx)
+    # print('d2Wn_dy = ', d2Wn_dy)
 
     # sigma_x = - E * z / (1 - mu) * (d2Wn_dx + mu * (d2Wn_dy))
     # sigma_y = - E * z / (1 - mu) * (d2Wn_dy + mu * (d2Wn_dx))

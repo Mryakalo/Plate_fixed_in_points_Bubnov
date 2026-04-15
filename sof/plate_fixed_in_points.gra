@@ -1,5 +1,5 @@
 PROG WING
-$ GRAPHIC document (version ####-##.## build #######) from Service Pack 2024 10 Build 1119 14.04.26 , 18:21:36
+$ GRAPHIC document (version ####-##.## build #######) from Service Pack 2024 10 Build 1119 15.04.26 , 13:05:47
 HEAD $ Nodal displacement in global Z  LC:          1
 UNIT 0 SET IN $ default unit set
 CTRL OPT GSTR VAL DEFA
@@ -23,7 +23,6 @@ $ graphics    2 | picture    1 | layer    1 : Bending moment m-xx in local x  LC
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
 MOVE X DEL DTYP QSEC,CUT,FIXL
-BOX
 SELE NUMB 0
 MOVE X 6.017322 Y 12.78868 Z 0 UNIT WC A 0 SCHH 0.300000 FACW 0.700000 MARG -400 C 3001 CB 101 ALIG DEFA SET PBE BOX OFF GRNO 0 DTYP QSEC DISZ 1.300000 DIST 0.600000 DASH 0.400000 PICT OFF SBOX OFF
 DRAW X 6.017322 Y -5.561104 Z 0 UNIT WC DTYP QSEC GRP NO MNO NO HINT NO DIST DEFA
@@ -42,38 +41,59 @@ QUAD TYPE MY UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
 $ graphics    3 | picture    1 | layer    2 : Bending moment m-yy in local y  LC:          1
 AND
 QUAD TYPE MY UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
-$ graphics    4 | picture    1 | layer    1 : Top Stress in local x  LC:          1
+$ graphics    4 | picture    1 | layer    1 : Top Total strains in local x  LC:         10
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
+FILL TYPE RGB NUMB 5 MODE '' DMOD DDEF LIGH DEFA DARK 'A57'
+FILL NUMB 40
+LC   NO 10
+QUAD TYPE EXU UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
+$ graphics    4 | picture    1 | layer    2 : Top Total strains in local x  LC:         10
+AND
+SCHH H6 -0.540000
+QUAD TYPE EXU UNIT DEFA SCHH NO STYP G2N FILL NO REPR DCUT AVER NO
+$ graphics    5 | picture    1 | layer    1 : Top Total strains in local y  LC:         10
+SIZ2
+AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
+SCHH H6 0.540000
+QUAD TYPE EYU UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
+$ graphics    5 | picture    1 | layer    2 : Top Total strains in local y  LC:         10
+AND
+SCHH H6 -0.540000
+QUAD TYPE EYU UNIT DEFA SCHH NO STYP G2N FILL NO REPR DCUT AVER NO
+$ graphics    6 | picture    1 | layer    1 : Top Stress in local x  LC:          1
+SIZ2
+AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
+SCHH H6 0.540000
 FILL TYPE RGB NUMB 5 MODE 'N' DMOD DDEF LIGH DEFA DARK 'A57'
 FILL NUMB 40
+LC   NO 1
 QUAD TYPE SXU UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
-$ graphics    4 | picture    1 | layer    2 : Top Stress in local x  LC:          1
+$ graphics    6 | picture    1 | layer    2 : Top Stress in local x  LC:          1
 AND
 QUAD TYPE SXU UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
-$ graphics    5 | picture    1 | layer    1 : Bottom Stress in local x  LC:          1
+$ graphics    7 | picture    1 | layer    1 : Bottom Stress in local x  LC:          1
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
 QUAD TYPE SXL UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
-$ graphics    5 | picture    1 | layer    2 : Bottom Stress in local x  LC:          1
+$ graphics    7 | picture    1 | layer    2 : Bottom Stress in local x  LC:          1
 AND
 QUAD TYPE SXL UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
-$ graphics    6 | picture    1 | layer    1 : Top Stress in local y  LC:          1
+$ graphics    8 | picture    1 | layer    1 : Top Stress in local y  LC:          1
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
 FILL TYPE RGB NUMB 5 MODE '' DMOD DDEF LIGH DEFA DARK 'A57'
 FILL NUMB 40
 QUAD TYPE SYU UNIT DEFA SCHH YES STYP ELEM FILL AREA REPR DTXT AVER NO
-$ graphics    6 | picture    1 | layer    2 : Top Stress in local y  LC:          1
+$ graphics    8 | picture    1 | layer    2 : Top Stress in local y  LC:          1
 AND
 QUAD TYPE SYU UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
-$ graphics    7 | picture    1 | layer    1 : Bending moment m-xx in local x  LC:          1
+$ graphics    9 | picture    1 | layer    1 : Bending moment m-xx in local x  LC:          1
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
 FILL TYPE RGB NUMB 5 MODE '' DMOD DDEF LIGH DEFA DARK 'A57'
 FILL NUMB 40
 MOVE X DEL DTYP QSEC,CUT,FIXL
-BOX
 SELE NUMB 0
 MOVE X 3.000103 Y 7.912677 Z 0 UNIT WC C 3001 BOX OFF GRNO 0 DTYP QSEC PICT OFF SBOX OFF
 DRAW X 3.000103 Y -1.271995 Z 0 UNIT WC DTYP QSEC GRP NO MNO NO HINT NO DIST DEFA
@@ -81,14 +101,14 @@ MOVE X -0.323885 Y 2.988431 Z 0 UNIT WC GRNO 0 DTYP QSEC
 DRAW X 6.110152 Y 2.988431 Z 0 UNIT WC DTYP QSEC
 SELE NUMB 0
 QUAD TYPE MX UNIT DEFA SCHH YES STYP NODE FILL AREA REPR DISO AVER NO
-$ graphics    7 | picture    1 | layer    2 : Bending moment m-xx in local x  LC:          1
+$ graphics    9 | picture    1 | layer    2 : Bending moment m-xx in local x  LC:          1
 AND
 QUAD TYPE MX UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
-$ graphics    8 | picture    1 | layer    1 : Bending moment m-xx in local x  LC:          1
+$ graphics   10 | picture    1 | layer    1 : Bending moment m-xx in local x  LC:          1
 SIZ2
 AND  POSI 1 POSL 0 POSR 100 POSD 0 POSU 100
 QUAD TYPE MX UNIT DEFA SCHH YES STYP NODE FILL AREA REPR DISO AVER NO
-$ graphics    8 | picture    1 | layer    2 : Bending moment m-xx in local x  LC:          1
+$ graphics   10 | picture    1 | layer    2 : Bending moment m-xx in local x  LC:          1
 AND
 MOVE X DEL DTYP QSEC,CUT,FIXL
 SELE NUMB 0
@@ -107,5 +127,5 @@ DRAW X 6.216918 Y 0.155497 Z 0 UNIT WC DTYP QSEC
 SELE NUMB 0
 QUAD TYPE MX UNIT DEFA SCHH YES STYP NODE FILL NO REPR DCUT AVER NO
 $ Definitions of interactive work
-iNTE SET 0 PAR1 4 PAR2 1 PAR3 1 PAR4 0 PAR5 0
+iNTE SET 0 PAR1 5 PAR2 1 PAR3 2 PAR4 0 PAR5 0
 END

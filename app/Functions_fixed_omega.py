@@ -7,16 +7,25 @@ from scipy import integrate
 def omega_fixed_omega(a, b):
     x, y = symbols('x y')
     # p = 2 / 0.39 * 80
-    p = 400
+    p_x = 400
+    p_y = 400
     # d = 2 / 0.39 / 24
-    d = 0.2
+    d_x = 0.2
+    d_y = 0.2
 
     # return simplify('(' + str((a / m.pi) ** 2 * sin(m.pi * x / a) * (sin(m.pi * y / b) - p) +
     #     (b / m.pi) ** 2 * sin(m.pi * y / b) * (sin(m.pi * x / a) - d)) + ')')
     # return simplify('(' + str((b / m.pi) ** 2 * sin(m.pi * y / b) * (sin(m.pi * x / a) - d)) + ')')
     # return simplify('(' + str((a / m.pi) ** 2 * sin(m.pi * x / a) * (sin(m.pi * y / b) - d)) + ')')
     # return simplify('(' + str(sin(m.pi * x / a) + sin(m.pi * y / b)) + ')')
-    return simplify('(' + str(5*sin(m.pi * x / a) + 0.5*sin(m.pi * y / b) - 0.4 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
+    return simplify('(' + str(3*sin(m.pi * x / a) + 0.5*sin(m.pi * y / b) - 0.4 * sin(m.pi * y / b) * sin(m.pi * x / a)) + ')')
+    # return simplify('(' + str((a / m.pi) ** 2 * (sin(m.pi * x / a) - d_x) * (sin(m.pi * y / b) - p_x) +
+    #     (b / m.pi) ** 2 * (sin(m.pi * y / b) - p_y) * (sin(m.pi * x / a) - d_y)) + ')')
+    # return simplify('(' + str((x ** 3 - 2 * a * x ** 2 + a ** 3) * x + (y ** 3 - 2 * b * y ** 2 + b ** 3) * y ) + ')')
+    # return simplify('(' + str((x ** 3 - 2 * a * x ** 2 + a ** 3) * x + (y ** 3 - 2 * b * y ** 2 + b ** 3) * y -
+    #                           0.0011 * (x ** 3 - 2 * a * x ** 2 + a ** 3) * x * (y ** 3 - 2 * b * y ** 2 + b ** 3) * y) + ')') # Для квадратной плиты подходит
+    # return simplify('(' + str(1/1.5*(x ** 3 - 2 * a * x ** 2 + a ** 3) * x + (y ** 3 - 2 * b * y ** 2 + b ** 3) * y -
+    #                           0.00014 * (x ** 3 - 2 * a * x ** 2 + a ** 3) * x * (y ** 3 - 2 * b * y ** 2 + b ** 3) * y) + ')')
 
 def wn_fixed_omega(i, j, a, b):
     x, y = symbols('x y')
